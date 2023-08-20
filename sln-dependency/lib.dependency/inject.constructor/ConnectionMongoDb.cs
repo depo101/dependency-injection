@@ -1,15 +1,15 @@
 namespace lib.dependency.inject.constructor;
 
-public class ConnectionMongoDb : IConnection<IConnectionResult>
+public class ConnectionMongoDb<TResult> : IConnection<TResult>
 {
-    private readonly IConnectionResult _connectionResult;
-    public ConnectionMongoDb(IConnectionResult connectionResult)
+    private readonly TResult _connectionResult;
+    public ConnectionMongoDb(TResult connectionResult)
     {
         _connectionResult = connectionResult;
     }
-    public IConnectionResult Connect()
+    public TResult Connect()
     {
         //MongoDb connection operations starts.
-        return _connectionResult.Connected(()=>false);
+        return _connectionResult;
     }
 }
