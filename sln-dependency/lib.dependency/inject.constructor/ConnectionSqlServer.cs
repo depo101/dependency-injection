@@ -1,6 +1,6 @@
 namespace lib.dependency.inject.constructor;
 
-public class ConnectionSqlServer<TResult> : IConnection<TResult>
+public class ConnectionSqlServer<TResult> : IConnection<TResult> where TResult : IConnectionResult
 {
     private readonly TResult _connectionResult;
     public ConnectionSqlServer(TResult connectionResult)
