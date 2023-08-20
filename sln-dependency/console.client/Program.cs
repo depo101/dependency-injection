@@ -1,19 +1,21 @@
 ﻿using lib.dependency.inject.constructor;
+using lib.dependency.inject.method;
+using lib.dependency.inject.property;
 
-#region Constructor Injection
-//sqlserver sample
-var sqlConnResult = new ConnectionResultSqlServer();
-var sqlConn = new ConnectionSqlServer(sqlConnResult);
-var cm = new ConnectionManager(sqlConn);
-string connStatus = cm.ConnectDb().Connected(()=> true).ConnectionStatus;
-Console.WriteLine(connStatus);
-
-//mongodb sample
-var mongoConnResult = new ConnectionResultMongoDb();
-var mongoConn = new ConnectionMongoDb(mongoConnResult);
-cm = new ConnectionManager(mongoConn);
-connStatus = cm.ConnectDb().ConnectionStatus;
-Console.WriteLine(connStatus);
+#region Constructor Injection sample - 1
+ILogManager logManager = new LogManager(new FileLogger());
+new LogConsumeOne(logManager).Test();
+new LogConsumeTwo(logManager).Test();
 #endregion
 
+#region Property Injection sample
+PayManager payManager = new PayManager
+{
+    SetPayment = new PayWithCash()
+};
+PayManager.Pay();
+#endregion
 
+#region Method Injection sample
+MessageManager.SendMessage(new SendMessageBySms());
+#endregion
