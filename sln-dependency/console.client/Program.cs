@@ -1,11 +1,21 @@
 ﻿using lib.dependency.inject.constructor;
+using lib.dependency.inject.method;
+using lib.dependency.inject.property;
 
-#region Constructor Injection
-
-IConnectionManager connectionManager = new ConnectionManager(ConnType.SqlServer);
-IConnectionResult connectionResult = connectionManager.Connect().Connected(()=>true);
-
-Console.WriteLine($"Connection result message : {connectionResult.ConnectionStatus}");
+#region Constructor Injection sample - 1
+ILogManager logManager = new LogManager(new FileLogger());
+new LogConsumeOne(logManager).Test();
+new LogConsumeTwo(logManager).Test();
 #endregion
 
+#region Property Injection sample
+PayManager payManager = new PayManager
+{
+    SetPayment = new PayWithCash()
+};
+PayManager.Pay();
+#endregion
 
+#region Method Injection sample
+MessageManager.SendMessage(new SendMessageBySms());
+#endregion

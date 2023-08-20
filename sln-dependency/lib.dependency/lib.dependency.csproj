@@ -6,9 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="inject.method\" />
-      <Folder Include="inject.property\" />
-    </ItemGroup>
-
 </Project>
